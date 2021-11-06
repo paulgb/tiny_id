@@ -135,6 +135,25 @@ fn main() {
 }
 ```
 
+## How it works
+
+A [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator)
+(LCG) is a simple, non-cryptographic pseudorandom number generator.
+
+LCGs are interesting because they generate numbers in a cycle, and the length of that cycle
+as a function of the parameters to the LCG is well known. In particular, one thing that's
+well understood is how to make an LCG that generates the numbers 1..m with a cycle size of m,
+i.e., to generate a permutation of the numbers 1..m. This is called the Hull-Dobell Theorem.
+
+For an alphabet of size `N` and an ID length of `L`, there are `N ^ L` possible codes. We can
+convert back and forth between the numbers `1 .. N^L` and those codes by treating the codes
+as `base-N` representations of the numbers.
+
+Combining these two facts, our approach is:
+- Using the Hull-Dobell Theorem, construct an LCG such that it will “visit” every number
+  from `1` to `N^L` in some random(ish) cycle.
+- Using the base conversion method, turn each of these numbers into a short ID.
+
 ## Notes
 
 Note that the `ShortCodeGenerator` object itself contains a small amount of
@@ -163,3 +182,21 @@ this should be negligible.
 If you provide an alphabet rather than use one of the built-in alphabets, that
 alphabet must not contain any repeated entries. This is not enforced by the library,
 but failure to abide will result in collisions.
+
+## Partitioning
+
+If you need two machines to be able to issue short IDs without coordinating,
+one approach would be to:
+
+1. Create an initial `ShortCodeGenerator` state on the first machine, and
+   serialize it.
+2. Deserialize the state on the second machine, and generate exactly one
+   code to advance the state.
+3. Every time a short code is needed on either machine, first generate and
+   throw away exactly one code, and then generate the code.
+
+This will ensure that each code is only used once (the first machine will use
+the even-indexed codes, and the second machine will use the odd-indexed ones.)
+
+This can work with an arbitrary number of machines, as long as the number is
+known in advance, but becomes less efficient with large numbers of partitions.
