@@ -141,7 +141,7 @@ A [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruent
 (LCG) is a simple, non-cryptographic pseudorandom number generator.
 
 LCGs are interesting because they generate numbers in a cycle, and the length of that cycle
-as a function of the parameters to the LCG is well known. In particular, one thing that's
+as a function of the parameters to the LCG is well-studied. In particular, one thing that's
 well understood is how to make an LCG that generates the numbers 1..m with a cycle size of m,
 i.e., to generate a permutation of the numbers 1..m. This is called the Hull-Dobell Theorem.
 
