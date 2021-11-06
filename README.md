@@ -35,16 +35,16 @@ fn main() {
 
     // There are several built-in alphabets with convenience constructors.
     
-    // Numeral digits (0-9)
+    // Numeral digits (0-9), like "769458".
     ShortCodeGenerator::new_numeric(length);
 
-    // Numeral digits and lowercase letters (a-z)
+    // Numeral digits and lowercase letters (a-z), like "l2sx2b".
     ShortCodeGenerator::new_lowercase_alphanumeric(length);
 
-    // Numeral digits, lowercase, and uppercase letters.
+    // Numeral digits, lowercase, and uppercase letters, like "qAh6Gg".
     ShortCodeGenerator::new_alphanumeric(length);
 
-    // Uppercase letters only.
+    // Uppercase letters only, like "MEPQOD".
     ShortCodeGenerator::new_uppercase(length);
 
     // You can also provide an alphabet with any unicode characters:
@@ -53,11 +53,17 @@ fn main() {
         length
     );
 
-    // The generator can also be used with non-char types, as long as they
-    // are Copy.
-    ShortCodeGenerator::with_alphabet(
+    // The generator can also be used with non-char types, as long
+    // as they are Copy.
+    let mut gen = ShortCodeGenerator::with_alphabet(
         vec![true, false],
         length
     );
+
+    // `next_string()` is only implemented on ShortCodeGenerator<char>,
+    // but we are using a ShortCodeGenerator<bool>, so we need to call
+    // `next()` instead, which returns a `Vec<bool>`.
+    let result: Vec<bool> = gen.next();
+    assert_eq!(length, result.len());
 }
 ```
