@@ -105,14 +105,14 @@ use tiny_id::{ShortCodeGenerator, ExhaustionStrategy};
 fn main() {
     // Increase length (default).
     
-    let mut gen = ShortCodeGenerator::new_uppercase(2)
-        .exhaustion_strategy(ExhaustionStrategy::IncreaseLength);
+    let mut gen = ShortCodeGenerator::new_uppercase(2);
 
     for _ in 0..(26*26) {
         let result = gen.next();
         assert_eq!(2, result.len());
     }
 
+    // We've exhausted all options, so our next code will be longer.
     let result = gen.next();
     assert_eq!(3, result.len());
 
@@ -128,6 +128,8 @@ fn main() {
         assert_eq!(2, result.len())
     }
 
+    // We've exhausted all options, so our next code will be a
+    // repeat of the first.
     let result = gen.next();
     assert_eq!(first, result);
 }
