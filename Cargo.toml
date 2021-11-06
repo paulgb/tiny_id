@@ -1,0 +1,17 @@
+[package]
+name = "tiny_id"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["rand", "serde"]
+
+[dependencies]
+rand = { version = "0.8.4", optional = true }
+serde = { version = "1.0.130", optional = true, features=["derive"] }
+
+[build-dependencies]
+skeptic = "0.13"
+
+[dev-dependencies]
+skeptic = "0.13"
