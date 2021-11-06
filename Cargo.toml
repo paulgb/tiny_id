@@ -2,6 +2,10 @@
 name = "tiny_id"
 version = "0.1.0"
 edition = "2021"
+readme = "README.md"
+repository = "https://github.com/paulgb/tiny_id"
+license = "MIT OR Apache-2.0"
+description = "Rust library for generating non-sequential, tightly-packed short IDs."
 
 [features]
 default = ["rand", "serde"]

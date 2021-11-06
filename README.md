@@ -1,5 +1,9 @@
 # `tiny_id`
 
+[![wokflow state](https://github.com/paulgb/tiny_id/workflows/Rust/badge.svg)](https://github.com/paulgb/tiny-id/actions/workflows/rust.yml)
+[![crates.io](https://img.shields.io/crates/v/tiny-id.svg)](https://crates.io/crates/tiny-id)
+[![docs.rs](https://img.shields.io/badge/docs-release-brightgreen)](https://docs.rs/tiny-id/)
+
 `tiny_id` is a Rust library for generating non-sequential, *tightly-packed* short IDs.
 
 Most other short ID generators just string together random digits. Due to the
