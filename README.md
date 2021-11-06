@@ -33,7 +33,7 @@ fn main() {
 
     // Create a generator. The generator must be mutable, because each
     // code generated updates its state.
-    let mut generator = ShortCodeGenerator::new_alphanumeric(6);
+    let mut generator = ShortCodeGenerator::new_alphanumeric(length);
 
     // Generate the next short code, and update the internal generator state.
     let code = generator.next_string();
