@@ -238,7 +238,7 @@ pub enum ExhaustionStrategy {
     /// when codes are used temporarily as it ensures that a code is never reused
     /// until *all other possible codes* have been used between usages.
     Cycle,
-    
+
     /// Increase the length of the sequence, and continue. This is the default and
     /// avoids collisions.
     IncreaseLength,
@@ -285,6 +285,20 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
+    fn test_exhaustion_panic() {
+        let mut gen_repeat =
+            ShortCodeGenerator::new_numeric(2).exhaustion_strategy(ExhaustionStrategy::Panic);
+
+        for _ in 0..100 {
+            let result = gen_repeat.next();
+            assert_eq!(2, result.len())
+        }
+
+        gen_repeat.next();
+    }
+
+    #[test]
     fn test_exhaustion_increase_length() {
         let mut gen_repeat = ShortCodeGenerator::new_numeric(2);
 
@@ -303,7 +317,8 @@ mod tests {
         let alphabet: Vec<u32> = (0..alphabet_size).into_iter().collect();
         let permutations: u64 = (alphabet_size as u64).pow(length as u32);
 
-        let mut gen = ShortCodeGenerator::with_alphabet(alphabet, length).exhaustion_strategy(ExhaustionStrategy::Cycle);
+        let mut gen = ShortCodeGenerator::with_alphabet(alphabet, length)
+            .exhaustion_strategy(ExhaustionStrategy::Cycle);
         let first = gen.next();
         let mut seen = HashSet::new();
 

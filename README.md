@@ -47,6 +47,8 @@ fn main() {
 use tiny_id::ShortCodeGenerator;
 
 fn main() {
+    let length = 6usize;
+
     // There are several built-in alphabets with convenience constructors.
     
     // Numeral digits (0-9), like "769458".
@@ -94,6 +96,40 @@ a certain length. There are three options for what to do when this happens:
   is the same in every cycle.
 - **Panic**. In the spirit of [fail-fast](https://en.wikipedia.org/wiki/Fail-fast),
   this panics when all codes have been used.
+
+```rust
+use tiny_id::{ShortCodeGenerator, ExhaustionStrategy};
+
+fn main() {
+    // Increase length (default).
+    
+    let mut gen = ShortCodeGenerator::new_uppercase(2)
+        .exhaustion_strategy(ExhaustionStrategy::IncreaseLength);
+
+    for _ in 0..(26*26) {
+        let result = gen.next();
+        assert_eq!(2, result.len());
+    }
+
+    let result = gen.next();
+    assert_eq!(3, result.len());
+
+    // Cycle.
+    
+    let mut gen = ShortCodeGenerator::new_uppercase(2)
+        .exhaustion_strategy(ExhaustionStrategy::Cycle);
+    
+    let first = gen.next();
+
+    for _ in 0..(26*26-1) {
+        let result = gen.next();
+        assert_eq!(2, result.len())
+    }
+
+    let result = gen.next();
+    assert_eq!(first, result);
+}
+```
 
 ## Notes
 
