@@ -8,7 +8,7 @@
 
 Most other short ID generators just string together random digits. Due to the
 [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem), that approach
-is prone to collisions. For example, a four-digit alphabetic code has a 50% chance of
+is prone to collisions. For example, a four-digit alphabetic code has a ~50% chance of
 collision after 800 codes.
 
 `tiny_id` uses a [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator)
