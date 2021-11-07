@@ -177,7 +177,7 @@ as `base-N` representations of the numbers.
 
 Combining these two facts, our approach is:
 - Using the Hull-Dobell Theorem, construct an LCG such that it will “visit” every number
-  from `1` to `N^L` in some random(ish) cycle.
+  from `1` to `N^L` in some random(ish) order.
 - Using the base conversion method, turn each of these numbers into a short ID.
 
 ## Notes
