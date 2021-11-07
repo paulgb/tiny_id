@@ -12,7 +12,7 @@ is prone to collisions. For example, a four-digit alphabetic code has a 50% chan
 collision after 800 codes.
 
 `tiny_id` uses a [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator)
-to generate codes which do not overlap while retaining only a small, constant-sized piece
+to generate codes which do not collide while retaining only a small, constant-sized piece
 of state. For the same four-digit alphabetic code, `tiny_id` has a 0% chance of collision until all 456,976 possible codes have been generated.
 
 These codes are indended for use-cases where it's desirable to have short, human-readable
