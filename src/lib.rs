@@ -109,6 +109,13 @@ impl LinearCongruentMultiplier {
     }
 }
 
+/// Stores the state required to generate short codes, and implements short code generation.
+/// 
+/// ```
+/// let mut generator = tiny_id::ShortCodeGenerator::new_lowercase_alphanumeric(5);
+/// let result: String = generator.next_string();
+/// assert_eq!(5, result.len());
+/// ```
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct ShortCodeGenerator<T: Copy> {
     lcm: LinearCongruentMultiplier,
