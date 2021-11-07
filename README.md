@@ -8,11 +8,11 @@
 
 Most other short ID generators just string together random digits. Due to the
 [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem), that approach
-is prone to collisions. For example, a four-digit alphabetic code has a 50% of
+is prone to collisions. For example, a four-digit alphabetic code has a 50% chance of
 collision after 800 codes.
 
 `tiny_id` uses a [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator)
-to generate codes which do not overlap while retaining only a small, constant-sized piece
+to generate codes which do not collide while retaining only a small, constant-sized piece
 of state. For the same four-digit alphabetic code, `tiny_id` has a 0% chance of collision until all 456,976 possible codes have been generated.
 
 These codes are indended for use-cases where it's desirable to have short, human-readable
@@ -50,7 +50,7 @@ fn main() {
 
     // Create a generator. The generator must be mutable, because each
     // code generated updates its state.
-    let mut generator = ShortCodeGenerator::new_alphanumeric(6);
+    let mut generator = ShortCodeGenerator::new_alphanumeric(length);
 
     // Generate the next short code, and update the internal generator state.
     let code = generator.next_string();
@@ -166,7 +166,7 @@ A [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruent
 (LCG) is a simple, non-cryptographic pseudorandom number generator.
 
 LCGs are interesting because they generate numbers in a cycle, and the length of that cycle
-as a function of the parameters to the LCG is well known. In particular, one thing that's
+as a function of the parameters to the LCG is well-studied. In particular, one thing that's
 well understood is how to make an LCG that generates the numbers 1..m with a cycle size of m,
 i.e., to generate a permutation of the numbers 1..m. This is called the Hull-Dobell Theorem.
 
