@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -9,6 +11,7 @@ use rand::{thread_rng, Rng};
 /// This only needs to go up to the size of our alphabet, which will usually
 /// be in the range of 25-50 characters, so we don't have to do anything
 /// fancy, just use a loop to keep cutting the number down to size.
+#[allow(clippy::mut_range_bound)]
 fn factorize(mut n: u32) -> Vec<u32> {
     let mut result = Vec::new();
     'outer: while n > 1 {
@@ -18,6 +21,7 @@ fn factorize(mut n: u32) -> Vec<u32> {
                 if last != Some(i) {
                     result.push(i)
                 }
+                
                 n /= i;
                 continue 'outer;
             }
@@ -201,6 +205,7 @@ impl<T: Copy> ShortCodeGenerator<T> {
     /// Return the next short code, represented as a vector.
     /// All `next_*` calls are equivalent to each other in terms of the
     /// resulting state of self.
+    #[allow(clippy::should_implement_trait)]
     pub fn next(&mut self) -> Vec<T> {
         if self.lcm.exhausted() {
             match self.exhaustion_strategy {
