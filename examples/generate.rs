@@ -4,10 +4,10 @@ const USAGE_MESSAGE: &str = "Usage: cargo run --example generate -- [alphabet si
 const FULL_ALPHABET: &str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 fn main() {
-    #[cfg(not(feature = "rand"))]
+    #[cfg(not(feature = "getrandom"))]
     panic!("Generate can only be used with the crate feature \"rand\".");
 
-    #[cfg(feature = "rand")]
+    #[cfg(feature = "getrandom")]
     {
         let mut args = std::env::args();
         args.next();

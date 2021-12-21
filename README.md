@@ -106,8 +106,8 @@ fn main() {
 
     // next_string() is only implemented on ShortCodeGenerator<char>,
     // but gen is a ShortCodeGenerator<bool>, so we need to call
-    // next() instead, which returns a Vec<bool>.
-    let result: Vec<bool> = gen.next();
+    // next_vec() instead, which returns a Vec<bool>.
+    let result: Vec<bool> = gen.next_vec();
     assert_eq!(length, result.len());
 }
 ```
@@ -135,12 +135,12 @@ fn main() {
     let mut gen = ShortCodeGenerator::new_uppercase(2);
 
     for _ in 0..(26*26) {
-        let result = gen.next();
+        let result = gen.next_vec();
         assert_eq!(2, result.len());
     }
 
     // We've exhausted all options, so our next code will be longer.
-    let result = gen.next();
+    let result = gen.next_vec();
     assert_eq!(3, result.len());
 
     // Cycle.
@@ -148,16 +148,16 @@ fn main() {
     let mut gen = ShortCodeGenerator::new_uppercase(2)
         .exhaustion_strategy(ExhaustionStrategy::Cycle);
     
-    let first = gen.next();
+    let first = gen.next_vec();
 
     for _ in 0..(26*26-1) {
-        let result = gen.next();
+        let result = gen.next_vec();
         assert_eq!(2, result.len())
     }
 
     // We've exhausted all options, so our next code will be a
     // repeat of the first.
-    let result = gen.next();
+    let result = gen.next_vec();
     assert_eq!(first, result);
 }
 ```
