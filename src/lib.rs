@@ -89,12 +89,12 @@ impl ShortCodeGenerator<char> {
 }
 
 impl<T: Copy> ShortCodeGenerator<T> {
-    pub fn into_parallel_generators(self, generators: u32) -> Vec<Self> {
+    pub fn into_partitioned_generators(self, generators: u32) -> Vec<Self> {
         (0..generators).map(
             move |offset| {
                 let mut gen = self.clone();
                 if gen.skip.is_some() {
-                    panic!("Can't use into_parallel_generators on a generator that is already parallel.");
+                    panic!("Can't use into_partitioned_generators on a generator that is already parallel.");
                 }
 
                 for _ in 0..offset {
@@ -164,7 +164,7 @@ impl<T: Copy> ShortCodeGenerator<T> {
                     // on the stack and overwrite them.
                     let skip = self.skip;
                     let skip_before_next = self.skip_before_next;
-                    
+
                     *self = ShortCodeGenerator::with_alphabet_and_rng(
                         core::mem::take(&mut self.alphabet),
                         self.length as usize + 1,
@@ -269,7 +269,7 @@ mod tests {
     #[test]
     fn test_parallel_generators() {
         let mut gen = ShortCodeGenerator::new_lowercase_alphanumeric(1);
-        let mut par_gens = gen.clone().into_parallel_generators(7);
+        let mut par_gens = gen.clone().into_partitioned_generators(7);
 
         for _ in 0..10000 {
             for par_gen in &mut par_gens {
