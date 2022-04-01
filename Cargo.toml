@@ -1,11 +1,11 @@
 [package]
 name = "tiny_id"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 readme = "README.md"
 repository = "https://github.com/paulgb/tiny_id"
 license = "MIT OR Apache-2.0"
-description = "Rust library for generating non-sequential, tightly-packed short IDs."
+description = "Library for generating non-sequential, tightly-packed short IDs. Use block-id instead."
 
 [features]
 default = ["getrandom", "serialize"]

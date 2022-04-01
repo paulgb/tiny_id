@@ -1,5 +1,8 @@
 # `tiny_id`
 
+**Tiny ID has been superseded by [`block-id`](https://github.com/drifting-in-space/block-id)**. `block-id` has better properties for
+use in a distributed setting, and is invertible. For new usages, I recommend using `block-id` over `tiny_id`.
+
 [![GitHub Repo stars](https://img.shields.io/github/stars/paulgb/tiny_id?style=social)](https://github.com/paulgb/tiny_id)
 [![wokflow state](https://github.com/paulgb/tiny_id/workflows/Rust/badge.svg)](https://github.com/paulgb/tiny-id/actions/workflows/rust.yml)
 [![crates.io](https://img.shields.io/crates/v/tiny-id.svg)](https://crates.io/crates/tiny-id)
